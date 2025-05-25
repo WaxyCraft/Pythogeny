@@ -5,22 +5,31 @@ class MatrixUtil:
     simCache = {}
     idCache = {}
 
-    def preSimCacheSpecies(speciesList: list[Species]):
+    def preIdCacheSpecies(speciesList: list[Species], reference: Species = None):
         tempCache = {}
+        averageReference = 0
+
+        if reference:
+            total = 0
+            for i in speciesList:
+                total += MatrixUtil.getIdScore(i, reference)
+            averageReference = total / len(speciesList)
 
         for i in speciesList:
             for j in speciesList[speciesList.index(i) + 1:]:
                 if not i in tempCache:
                     tempCache[i] = {}
 
-                tempCache[i][j] = MatrixUtil.getSimScore(i, j)
+                score = MatrixUtil.getIdScore(i, j)
+
+                if reference:
+                    score = ((score - MatrixUtil.getIdScore(i, reference) - MatrixUtil.getIdScore(j, reference)) / 2) + averageReference
+
+                tempCache[i][j] = score
 
         return tempCache
-    
-    def preIdCacheSpecies(speciesList: list[Species]):
-        pass #TODO
 
-    def getSimScore(i: Species, j: Species):
+    def getIdScore(i: Species, j: Species):
         if i in MatrixUtil.simCache and j in MatrixUtil.simCache[i]:
             if j in MatrixUtil.simCache[i]:
                 return MatrixUtil.simCache[i][j]
@@ -47,23 +56,3 @@ class MatrixUtil:
             MatrixUtil.simCache[i][j] = simScore
 
             return simScore
-
-    def getIdScore(i: int, j: int):
-        pass #TODO
-
-if __name__ == "__main__":
-    species = []
-    with open('input.csv') as csvfile:
-        reader = csv.reader(csvfile)
-        for row in reader:
-            i = 65
-            for id in row:
-                species.append(Species(chr(i), id))
-                i += 1
-    x = MatrixUtil.preSimCacheSpecies(species)
-    x = MatrixUtil.simCache
-    for key in x:
-        for yek in x[key]:
-            # print(f"{key.label} to {yek.label}: {x[key][yek]}")
-            print(str(x[key][yek]) + ',', end='')
-        print()

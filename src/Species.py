@@ -22,8 +22,3 @@ class Species:
         text = text.replace('\n', '')
         
         return text
-    
-if __name__ == "__main__":
-    x = Species("hippo")
-    x.setSequenceFromUniprotId("q9zzy9")
-    print(x.sequence)

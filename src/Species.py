@@ -9,7 +9,14 @@ class Species:
         elif sequence:
             self.sequence = sequence
         else:
-            return None
+            self.sequence = None
+
+    def __eq__(self, value):
+        if isinstance(value, Species):
+            return self.label == value.label
+        
+    def __hash__(self):
+        return hash(self.label)
 
     def getSequenceFromUniprotId(uniprotId: str):
         response = requests.get(f"https://rest.uniprot.org/uniprotkb/{uniprotId}.fasta")
@@ -22,3 +29,13 @@ class Species:
         text = text.replace('\n', '')
         
         return text
+    
+class Cluster(Species):
+    def __init__(self, speciesList: list[Species], label: str = None):
+        if not label:
+            label = ''
+            for species in speciesList:
+                label += species.label
+
+        super().__init__(label, None, None)
+        self.speciesList = speciesList

@@ -46,7 +46,7 @@ class MatrixUtil:
                 for species in clusterSpecies.speciesList:
                     totalDistance += 1.0 - MatrixUtil.getIdScore(species, nonClusterSpecies)
 
-                idScore = 1.0 - totalDistance
+                idScore = 1.0 - (totalDistance / len(clusterSpecies.speciesList))
 
                 MatrixUtil.addToCache(clusterSpecies, nonClusterSpecies, idScore)
 

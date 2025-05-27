@@ -38,12 +38,12 @@ reference = None
 
 if Path("input.csv").is_file():
     if askQuestion("There is an input file present. Would you like to open it? (Y/n): ", expectedAnswers = ['y', 'n']) == 'y':
+        print("Loading species from input file...")
         with open("input.csv", mode='r') as csvfile:
             reader = csv.reader(csvfile)
             for row in reader:
                 for item in row:
                     uniprot, label = tuple(item.split(':'))
-                    print(uniprot, label)
                     if label == "ref":
                         reference = Species(label, uniprot)
                     else:
@@ -60,10 +60,11 @@ if not species:
         uniprot = askQuestion(f"What is the UniProt sequence id for the reference species {i + 1}? (str): ", expectedType = str)
         species.append(Species(label,uniprot))
 
+print("Generating identity matrix...")
+
 matrix = MatrixUtil.generateIdMatrix(species, reference)
 
-print(matrix)
-
-tree = TreeUtil.makeTree(matrix, reference)
-for node in tree.nodes:
-    print(f"Node: {node.label}, Parent: {node.parent.label if node.parent else None}, Length: {node.parentLength}")
+tree: Tree = TreeUtil.makeTree(matrix, reference)
+for nodeKey in tree.nodes:
+    node = tree.nodes[nodeKey]
+    print(f"Key: {nodeKey.label}, Node: {node.label}, Parent: {node.parent.label if node.parent else None}, Length: {node.parentLength}")

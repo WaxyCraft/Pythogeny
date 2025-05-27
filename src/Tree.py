@@ -1,3 +1,5 @@
+from Species import Species
+
 class Node:
     def __init__(self, parent: 'Node' = None, parentLength: 'Node' = None, label: str = None):
         self.parent = parent
@@ -5,7 +7,7 @@ class Node:
         self.label = label
 
 class Tree:
-    def __init__(self, nodes: list[Node], title: str = None):
+    def __init__(self, nodes: dict[Species, Node], title: str = None):
         self.nodes = nodes
         self.title = title
 

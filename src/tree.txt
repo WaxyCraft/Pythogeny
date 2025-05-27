@@ -1,0 +1,36 @@
+digraph G {
+
+nompfhgkacebdijl -> "Ornithorhynchus anatinus"
+nompfhgkacebdijl -> ompfhgkacebdijl
+ompfhgkacebdijl -> "Notoryctes typhlops"
+ompfhgkacebdijl -> mpfhgkacebdijl
+mpfhgkacebdijl -> fhgkacebdijl
+fhgkacebdijl -> gkacebdijl
+gkacebdijl -> "Oryctolagus cuniculus"
+gkacebdijl -> kacebdijl
+kacebdijl -> "Tamandua tetradactyla"
+fhgkacebdijl -> fh
+fh -> "Rattus norvegicus"
+fh -> "Colobus polykomos"
+kacebdijl -> acebdijl
+acebdijl -> jl
+jl -> "Trichechus manatus"
+jl -> "Loxodonta africana"
+acebdijl -> acebdi
+mpfhgkacebdijl -> mp
+mp -> "Sorex unguiculatus"
+mp -> "Urotrichus talpoides"
+acebdi -> bdi
+bdi -> "Equus caballus"
+bdi -> di
+di -> "Felis silvestris"
+di -> "Procyon lotor"
+acebdi -> ace
+ace -> "Hippopotamus amphibius"
+ace -> ce
+ce -> "Tursiops truncatus"
+ce -> "Cervus elaphus"
+
+}
+
+
